@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'user.css' %}">
+    <title>User Page</title>
+  </head>
+  <body>
+    <div class="container">
+        <a href="/user_page">Dashboard</a> | <a href="/logout">Logout</a>
+      <div id="greeting">
+        <h1>Hi {{request.session.name}}</h1>
+      </div>
+      <div id="post_thought">
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/add_thought" method="post">
+          {% csrf_token %}
+          <input
+            placeholder="Post a great thought here"
+            name="thoughts"
+            type="text"
+          />
+          <button name="add_thought" type="submit">Add Thought</button>
+        </form>
+      </div>
+      <hr />
+      <div id="all_thoughts">
+        {% for thought in all_thoughts %} {{thought.posted_by.first_name}}:
+        {{thought.thoughts}}
+        <a href="/details/{{thought.id}}">Details</a>
+        <br>
+        
+        {% if request.session.name in thought.posted_by.first_name %}
+        <a href="/delete/{{thought.id}}">Delete</a>
+        {% endif %}
+        <p>{{counted}} people like this!</p>
+        <hr>
+        <br>
+        
+        {% endfor %}
+      </div>
+      
+    </div>
+    </div>
+  </body>
+</html>

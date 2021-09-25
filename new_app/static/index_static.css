@@ -1,0 +1,11 @@
+#registration {
+    display:flex;
+    flex-direction:column;
+    /* background-color: blue; */
+}
+
+#login {
+    display:flex;
+    flex-wrap: wrap;
+    /* background-color: blue; */
+}

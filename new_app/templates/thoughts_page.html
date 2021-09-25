@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'thoughts.css' %}">
+    <title>Thought Page</title>
+</head>
+<body>
+    <div class="container">
+        <a href="/user_page">Dashboard</a> | <a href="/logout">Logout</a>
+        <div id="thought_section">
+            <p>{{one_thought.posted_by.first_name}} says:</p>
+            <p>{{one_thought.thoughts}}</p>
+            <a href="/like/{{one_thought.id}}">Like</a>
+            <a href="/unlike/{{one_thought.id}}">Unlike</a>
+
+
+        </div>
+        <div id="like_section">
+            <h3>People Who Liked This Thought:</h3>
+            <table>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+                {% for like in all_likes %}
+                <tr>
+                    <td>{{like.first_name}}</td>
+                    <td>{{like.last_name}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        
+    </div>
+</body>
+</html>
